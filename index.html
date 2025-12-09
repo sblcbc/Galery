@@ -1,117 +1,247 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>G�kku�a�� Lokantas�</title>
-
+    <title>Dostlar Lokantası</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: #fff;
+        }
+
+
+        .sidebar {
+            height: 100vh;
+            background-color: #111;
+            padding-top: 20px;
+        }
+
+            .sidebar a {
+                color: #e63946;
+                display: block;
+                padding: 12px;
+                text-decoration: none;
+                font-size: 18px;
+            }
+
+                .sidebar a:hover,
+                .sidebar a.active {
+                    background-color: #e63946;
+                    color: #fff;
+                }
+
+        .content {
+            padding: 20px;
+        }
+
+        .food-item {
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .food-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .food-item:hover .food-img {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+
+        .food-name {
+            margin-top: 8px;
+            font-size: 18px;
+        }
+
+        .price-tag {
+            position: absolute;
+            bottom: 45px;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            padding: 5px;
+            display: none;
+        }
+
+        .food-item:hover .price-tag {
+            display: block;
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                height: auto;
+            }
+        }
+
+
+    </style>
 </head>
+
+
 <body>
-    <h1>Men�</h1>
-    <p>�orbalar</p>
-    <p>Salatalar</p>
-    <p>Makarnalar</p>
-    <p>EBT</p>
-    <p>Tatl�lar</p>
+
+    <div class="container-fluid">
+        <div class="row">
 
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">�orbalar</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Salatalar</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Makarnalar</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">EBT</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Tatl�lar</button>
+            <div class="col-3 col-md-2 sidebar">
 
 
-    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">�orbalar</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://picsum.photos/id/111/600/400" alt="Alternate Text" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <a href="#" class="active" data-category="corbalar">Çorbalar</a>
+                <a href="#" data-category="salatalar">Salatalar</a>
+                <a href="#" data-category="makarnalar">Makarnalar</a>
+                <a href="#" data-category="ebt">EBT</a>
+                <a href="#" data-category="tatlilar">Tatlılar</a>
+            </div>
+
+
+            <div class="col-9 col-md-10 content">
+                <h2 id="categoryTitle">Çorbalar</h2>
+                <div class="row g-4 mt-3" id="foodContainer">
+
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Salatalar</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark text-white">
+
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="modalName"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    <img src="https://picsum.photos/id/666/600/400" alt="Alternate Text" />
+
+                <div class="modal-body text-center p-0">
+                    <img id="modalImage" src="" class="img-fluid w-100">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                <div class="modal-footer border-0 justify-content-center">
+                    <span class="fs-4" id="modalPrice"></span>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Makarnalar</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://picsum.photos/id/666/600/400" alt="Alternate Text" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
 
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">EBT</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://picsum.photos/id/666/600/400" alt="Alternate Text" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        const categories = {
+            corbalar: [
+                { src: 'img/Corba1.jpg', name: 'Mercimek Çorbası', price: '75 ₺' },
+                { src: 'img/Corba2.jpg', name: 'Domates Çorbası', price: '80 ₺' },
+                { src: 'img/Corba3.jpg', name: 'Tarhana Çorbası', price: '70 ₺' },
+                { src: 'img/Corba4.jpg', name: 'Kelle Paça Çorbası', price: '110 ₺' }
+            ],
+            salatalar: [
+                { src: 'img/Salata1.jpg', name: 'Çoban Salata', price: '65 ₺' },
+                { src: 'img/Salata2.jpg', name: 'Mevsim Salata', price: '70 ₺' },
+                { src: 'img/Salata3.jpg', name: 'Akdeniz Salata', price: '80 ₺' },
+                { src: 'img/Salata4.jpg', name: 'Tavuklu Salata', price: '110 ₺' }
+            ],
+            makarnalar: [
+                { src: 'img/Makarna1.jpg', name: 'Napoliten Makarna', price: '120 ₺' },
+                { src: 'img/Makarna2.jpg', name: 'Bolonez Makarna', price: '135 ₺' },
+                { src: 'img/Makarna3.jpg', name: 'Mantarlı Kremalı Makarna', price: '145 ₺' },
+                { src: 'img/Makarna4.jpg', name: 'Fırın Makarna', price: '140 ₺' }
+            ],
+            ebt: [
+                { src: 'img/EBT1.jpg', name: 'Fırın Somon', price: '190 ₺' },
+                { src: 'img/EBT2.jpg', name: 'Izgara Tavuk', price: '180 ₺' },
+                { src: 'img/EBT3.jpg', name: 'Izgara Köfte', price: '230 ₺' },
+                { src: 'img/EBT4.jpg', name: 'Karışık Izgara', price: '260 ₺' }
+            ],
+            tatlilar: [
+                { src: 'img/Tatli1.jpg', name: 'Çikolatalı Pasta', price: '80 ₺' },
+                { src: 'img/Tatli2.jpg', name: 'Krep Rüyası', price: '120 ₺' },
+                { src: 'img/Tatli3.jpg', name: 'Tiramisu', price: '90 ₺' },
+                { src: 'img/Tatli4.jpg', name: 'Cheesecake', price: '95 ₺' }
+            ]
+        };
 
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tatl�lar</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://picsum.photos/id/666/600/400" alt="Alternate Text" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+        function showImage(src, name, price) {
+            document.getElementById("modalImage").src = src;
+            document.getElementById("modalName").innerText = name;
+            document.getElementById("modalPrice").innerText = price;
+
+            var modal = new bootstrap.Modal(document.getElementById('imageModal'));
+            modal.show();
+        }
+
+
+        function renderCategory(key, title) {
+            const container = document.getElementById('foodContainer');
+            const heading = document.getElementById('categoryTitle');
+
+            heading.textContent = title;
+            container.innerHTML = '';
+
+            if (!categories[key]) return;
+
+            categories[key].forEach(item => {
+                const col = document.createElement('div');
+                col.className = 'col-6 col-md-3';
+
+                col.innerHTML = `
+                                <div class="food-item position-relative">
+                                    <img src="${item.src}"
+                                         class="img-fluid rounded shadow food-img"
+                                         onclick="showImage('${item.src}', '${item.name}', '${item.price}')">
+                                    <div class="food-name">${item.name}</div>
+                                    <div class="price-tag">${item.price}</div>
+                                </div>
+                            `;
+                container.appendChild(col);
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryLinks = document.querySelectorAll('.sidebar a[data-category]');
+
+
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const key = this.getAttribute('data-category');
+                    const title = this.textContent.trim();
+
+
+                    categoryLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+
+                    renderCategory(key, title);
+                });
+            });
+
+
+            renderCategory('corbalar', 'Çorbalar');
+        });
+
+
+
+
+    </script>
+
+    <hr />
+
+    <footer>
+        <h5> Sibel Cebeci</h5>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
 </body>
 </html>
